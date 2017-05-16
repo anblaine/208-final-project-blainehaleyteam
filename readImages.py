@@ -3,7 +3,7 @@ def readAll(directory, filetype, color_mode):
     Returns a list of all images in the directory in the format of readImage()
 
     Input:  directory where images are stored,
-            filetype (suggested to use .png)
+            filetype (suggested to use .png),
             color mode (see readImage)
     """
     import glob
