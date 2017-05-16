@@ -32,3 +32,17 @@ def readImage(filename, color_mode):
     image = misc.imread(filename, mode=color_mode)
     A = np.asarray(image)
     return A
+
+
+def colorDecompose(image):
+    """
+    Returns the red, green, and blue channels of an image imported using
+    readImage with mode 'RGB'
+
+    Input: numpy image array
+    """
+    import numpy as np
+
+    decomposed = np.transpose(image, (2, 0, 1))
+
+    return decomposed[0], decomposed[1], decomposed[2]
