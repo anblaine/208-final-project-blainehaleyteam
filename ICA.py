@@ -1,4 +1,8 @@
 def ICA_basis(samples, n_components, num_iter=2000):
+    """
+    Generates an ICA basis using the FastICA algorithm.
+    It assumes NON-prewhitened data and returns a basis of n_components vectors
+    """
     from sklearn.decomposition import FastICA
 
     estimator = FastICA(n_components=n_components, whiten=True,
@@ -8,6 +12,14 @@ def ICA_basis(samples, n_components, num_iter=2000):
 
 
 def train_ICA(images, block_size, num_samples=400, num_iter=2000):
+    """
+    Wrapper function for ICA training, takes as input a list of images,
+    a block size, a number of samples, and a number of iterations to use
+    for the FastICA algorithm.
+
+    Returns a basis, the training set used, and two lists corresponding to
+    the coordinates of the random samples of each image.
+    """
     from blocks import createTrain, vectorizeBlocks
     import numpy as np
     train = []
@@ -24,6 +36,12 @@ def train_ICA(images, block_size, num_samples=400, num_iter=2000):
 
 
 def plot_gallery(title, images, n_col=8, n_row=8, image_shape=(8, 8)):
+    """
+    Function for ploting all of our basis elements in one array.
+    Found on SKLearn's faces dataset decomposition.
+    Takes as input a figure title, a list of images, a number of columns,
+    a number of rows, and an image shape.
+    """
     import matplotlib.pyplot as plt
     plt.figure(figsize=(2. * n_col, 2.26 * n_row))
     plt.suptitle(title, size=16)
@@ -40,6 +58,12 @@ def plot_gallery(title, images, n_col=8, n_row=8, image_shape=(8, 8)):
 
 
 def ICA_decompose(image, block_size, basis, tol):
+    """
+    Uses Orthogonal Matching Pursuit to decompose an image to a given tolerance
+    Takes as input a single image, a block size, a basis, and a tolerance.
+    Returns an array of coefficients, a list of intercepts, and a list of
+    number of coefficients used per block.
+    """
     from sklearn.linear_model import OrthogonalMatchingPursuit
     from blocks import vectorizeBlocks, blockDecompose
     import numpy as np
@@ -55,6 +79,13 @@ def ICA_decompose(image, block_size, basis, tol):
 
 
 def reconstruct(decompositions, intercepts, basis, block_size, image_shape):
+    """
+    Reconstructs an image from a given decomposition and basis.
+    Takes as input a decomposition, an intercept, a basis, a block size,
+    and an image shape.
+
+    Returns a single reconstructed image.
+    """
     import numpy as np
     from blocks import unvectorizeBlock
     reconstructed_blocks = []
@@ -63,7 +94,7 @@ def reconstruct(decompositions, intercepts, basis, block_size, image_shape):
         for j in range(0, len(basis)):
             reconstructed_vector = reconstructed_vector \
                 + decompositions[i][j] * basis[j]
-        reconstructed_blocks.append(unvectorizeBlock(reconstructed_vector, 
+        reconstructed_blocks.append(unvectorizeBlock(reconstructed_vector,
                                                      block_size))
 
     reconstructed_image = np.zeros(image_shape)

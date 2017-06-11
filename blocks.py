@@ -1,17 +1,12 @@
 def blockDecompose(image, block_size):
+    """
+    Decomposes an image into a list of blocks of size block_size
+    """
     blocks = []
     for i in range(0, (image.shape[0] / block_size)):
         for j in range(0, (image.shape[1] / block_size)):
             blocks.append(image[block_size * i:block_size * (i + 1),
-                          block_size * j:block_size * (j + 1)])
-    return blocks
-
-
-def createBlocks(images, block_size):
-    blocks = []
-    for image in images:
-        blocks = blocks + blockDecompose(image, block_size)
-
+                                block_size * j:block_size * (j + 1)])
     return blocks
 
 
