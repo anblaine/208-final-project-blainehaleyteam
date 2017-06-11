@@ -1,6 +1,7 @@
-# Comparison of Image Compression Techniques
+# Image Compression using ICA+KMeans
 Members: Alex Blaine, David Haley
 
-We'll be comparing multiple methods of image compression based on techniques learned during the course.
+We'll be demonstrating how Independent Component Analysis and KMeans Clustering can be used together to compress images.
+Additionally, we'll evaluate how ICA's tolerance and KMeans number of cluster centers affects the performance of the method.
 
-[Link to summary notebooks]
+[Summary Notebook](https://github.com/UCDSTA208/208-final-project-blainehaleyteam/blob/master/ICA_Test_w_kmeans.ipynb)
